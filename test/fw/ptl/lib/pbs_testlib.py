@@ -7425,14 +7425,13 @@ class Server(PBSService):
                                          and 'R' in v[-1]) or v == 'R'):
                     add_attribs['substate'] = '42'
                 elif k == 'job_state=R':
-                    add_attribs['substate'] = v
+                    add_attribs['substate=42'] = v
                 elif 'substate' in k:
                     substate = True
             if add_attribs['substate'] and not substate:
                 attrib['substate'] = add_attribs['substate']
                 attrop = PTL_AND
             del add_attribs, substate
-        
 
         prefix = 'expect on ' + self.logprefix
         msg = []
