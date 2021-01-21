@@ -537,6 +537,7 @@ pbs_python_ext_namespace_init(
 #ifdef PYTHON                        /* --- BEGIN PYTHON BLOCK --- */
 
 	PyObject *namespace_dict = NULL;
+	PyObject *py_v1_module;
 
 	namespace_dict = PyDict_New(); /* New Refrence MUST Decref */
 	if (!namespace_dict) {
@@ -554,12 +555,13 @@ pbs_python_ext_namespace_init(
 		goto ERROR_EXIT;
 	}
 
+	py_v1_module = pbs_v1_module_init();
 	/*
 	 * Now, add our extension object/module to the namespace.
 	 */
 	if ((PyDict_SetItemString(namespace_dict,
 		PBS_PYTHON_V1_MODULE_EXTENSION_NAME,
-		pbs_v1_module_init()) == -1)
+		py_v1_module) == -1)
 		) {
 		snprintf(log_buffer, LOG_BUF_SIZE-1, "%s|adding extension object",
 			__func__);
@@ -567,6 +569,7 @@ pbs_python_ext_namespace_init(
 		pbs_python_write_error_to_log(__func__);
 		goto ERROR_EXIT;
 	}
+	Py_XDECREF(py_v1_module);
 
 	return namespace_dict;
 
