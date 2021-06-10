@@ -4723,6 +4723,8 @@ found:
 				log_event(PBSEVENT_SYSTEM, PBS_EVENTCLASS_NODE,
 				LOG_NOTICE, pmom->mi_host, node_up);
 			}
+			log_eventf(PBSEVENT_SYSTEM, PBS_EVENTCLASS_NODE,
+				LOG_NOTICE, pmom->mi_host, "State is %ld", pdmninfo->dmn_state);
 			psvrmom->msr_timedown = 0;
 
 #if defined(PBS_SECURITY) && (PBS_SECURITY == KRB5)

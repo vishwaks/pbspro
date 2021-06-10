@@ -5816,11 +5816,15 @@ sync_mom_hookfilesTPP(void *minfo)
 
 		conn = minfo_array[i]->mi_dmn_info->dmn_stream;
 		if (conn == -1) {
+			snprintf(log_buffer, sizeof(log_buffer), "Mom Name: %s, no connection", minfo_array[0]->mi_host);
+			log_event(PBSEVENT_DEBUG, PBS_EVENTCLASS_SERVER, LOG_INFO, __func__, log_buffer);
 			skipped++;
 			continue;
 		}
 
 		if (minfo_array[i]->mi_dmn_info->dmn_state & INUSE_DOWN) {
+			snprintf(log_buffer, sizeof(log_buffer), "Mom Name: %s, down", minfo_array[0]->mi_host);
+			log_event(PBSEVENT_DEBUG, PBS_EVENTCLASS_SERVER, LOG_INFO, __func__, log_buffer);
 			skipped++;
 			continue;
 		}
